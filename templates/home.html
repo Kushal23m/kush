@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQI Prediction - Jaipur</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input[type="number"],
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .prediction-result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        
+        .prediction-result.show {
+            display: block;
+        }
+        
+        .prediction-result h2 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .prediction-value {
+            font-size: 36px;
+            color: #764ba2;
+            font-weight: bold;
+        }
+        
+        .info-text {
+            font-size: 12px;
+            color: #888;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AQI Prediction</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">Air Quality Index Prediction for Jaipur</p>
+        
+        <form method="POST" action="/predict">
+            <div class="form-group">
+                <label for="feature1">Temperature (°C)</label>
+                <input type="number" step="0.1" name="feature1" id="feature1" placeholder="Enter temperature" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="feature2">Humidity (%)</label>
+                <input type="number" step="0.1" name="feature2" id="feature2" placeholder="Enter humidity" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="feature3">Pressure (hPa)</label>
+                <input type="number" step="0.1" name="feature3" id="feature3" placeholder="Enter pressure" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="feature4">Wind Speed (km/h)</label>
+                <input type="number" step="0.1" name="feature4" id="feature4" placeholder="Enter wind speed" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="feature5">Precipitation (mm)</label>
+                <input type="number" step="0.1" name="feature5" id="feature5" placeholder="Enter precipitation" required>
+            </div>
+            
+            <button type="submit">Predict AQI</button>
+        </form>
+        
+        {% if prediction_text %}
+        <div class="prediction-result show">
+            <h2>{{ prediction_text }}</h2>
+        </div>
+        {% endif %}
+        
+        <div class="info-text">
+            <p>Enter meteorological parameters to predict the Air Quality Index</p>
+        </div>
+    </div>
+</body>
+</html>
